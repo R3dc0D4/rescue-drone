@@ -4,7 +4,9 @@
 **Güncelleme:** 28.06.2026  
 **Durum:** Parça temini  
 **Sorumlu:** Ünal TANRISEVER  
-**Amaç:** Doğada kayıp kişi arama-kurtarma drone'u — AKUT gönüllüsü olarak, tüm ekiplerin uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır. Ticari değil, gönüllülük amaçlıdır.
+**Amaç:** Doğada kayıp kişi arama-kurtarma drone'u — arama-kurtarma faaliyeti yürüten tüm STK'ların (AKUT, AFAD, UMKE, Kızılay, yerel arama grupları vb.) uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır. Ticari değil, gönüllülük amaçlıdır.
+
+**Niyet:** Deniz dibi çöp toplama + su akıntısı ile karşı adaya giden çöp toplama + arama-kurtarma
 
 ## Proje Özeti
 

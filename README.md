@@ -1,18 +1,20 @@
-# 🚁 AKUT Arama-Kurtarma Drone Projesi
+# 🚁 Arama-Kurtarma Drone Projesi
 
 > **Uygun fiyatlı, açık kaynaklı, otopilot arama-kurtarma drone'u**
 > 
-> AKUT gönüllüsü olarak, tüm ekiplerin uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır.
+> Tüm arama-kurtarma STK'larının (AKUT, AFAD, UMKE, Kızılay, yerel arama grupları vb.) uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır.
+> 
+> Gönüllülük amaçlı, ticari olmayan bir projedir.
 
 ## 🎯 Proje Amacı
 
-Bu proje ticari değil, **gönüllülük amaçlıdır**. AKUT (Arama Kurtarma Derneği) gönüllüleri için:
+Bu proje ticari değil, **gönüllülük amaçlıdır**. Arama-kurtarma faaliyeti yürüten tüm STK'lar ve gönüllü gruplar için:
 
 - 🌊 Deniz dibi çöp toplama
 - 🌊 Su akıntısı ile karşı adaya giden çöp toplama  
 - 🔍 Doğada kayıp kişi arama-kurtarma
 
-Hedef: Tüm AKUT ekiplerinin kopyalayabileceği, düşük maliyetli, tekrarlanabilir bir kurtarma drone sistemi.
+Hedef: Tüm arama-kurtarma ekiplerinin kopyalayabileceği, düşük maliyetli, tekrarlanabilir bir kurtarma drone sistemi.
 
 ## ⚙️ Donanım
 
@@ -106,4 +108,4 @@ MIT License — ticari olmayan, gönüllülük amaçlı kullanım için serbestt
 
 ---
 
-**🚁 Her ekip bir kurtarma drone'una sahip olabilmeli.**
+**🚁 Her ekipte bir kurtarma drone'u olabilmeli.**
