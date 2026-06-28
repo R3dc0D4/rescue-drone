@@ -30,7 +30,7 @@ Hedef: Tüm arama-kurtarma gönüllü ekiplerinin kopyalayabileceği, düşük m
 | Termal Kamera | (Faz 4) | ~8.000-15.000 TL | Gece arama |
 | **Toplam (Faz 1-3)** | | **~25.000-27.000 TL** | |
 
-> ⚠️ Fiyatlar Haziran 2026 itibarıyladır. AKUT gönüllüleri için toplu alım indirimleri araştırılmalıdır.
+> ⚠️ Fiyatlar Haziran 2026 itibarıyladır. Toplu alım indirimleri araştırılmalıdır.
 
 ## 🏗️ Proje Fazları
 
@@ -104,7 +104,7 @@ MIT License — ticari olmayan, gönüllülük amaçlı kullanım için serbestt
 
 - [ArduPilot](https://ardupilot.org/) — açık kaynak otopilot yazılımı
 - [Robotistan](https://www.robotistan.com/) — Türkiye'de drone parçaları
-- AKUT — arama-kurtarma gönüllüleri
+- Arama-kurtarma gönüllüleri — her yerde, her zaman
 
 ---
 
