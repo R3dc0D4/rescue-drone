@@ -2,19 +2,19 @@
 
 > **Uygun fiyatlı, açık kaynaklı, otopilot arama-kurtarma drone'u**
 > 
-> Tüm arama-kurtarma STK'larının (AKUT, AFAD, UMKE, Kızılay, yerel arama grupları vb.) uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır.
+> Tüm arama-kurtarma gönüllü gruplarının ve STK'ların uygun fiyatlı kurtarma drone'una sahip olabilmesi için tasarlanmıştır.
 > 
 > Gönüllülük amaçlı, ticari olmayan bir projedir.
 
 ## 🎯 Proje Amacı
 
-Bu proje ticari değil, **gönüllülük amaçlıdır**. Arama-kurtarma faaliyeti yürüten tüm STK'lar ve gönüllü gruplar için:
+Bu proje ticari değil, **gönüllülük amaçlıdır**. Arama-kurtarma faaliyeti yürüten gönüllü gruplar ve STK'lar için:
 
 - 🌊 Deniz dibi çöp toplama
 - 🌊 Su akıntısı ile karşı adaya giden çöp toplama  
 - 🔍 Doğada kayıp kişi arama-kurtarma
 
-Hedef: Tüm arama-kurtarma ekiplerinin kopyalayabileceği, düşük maliyetli, tekrarlanabilir bir kurtarma drone sistemi.
+Hedef: Tüm arama-kurtarma gönüllü ekiplerinin kopyalayabileceği, düşük maliyetli, tekrarlanabilir bir kurtarma drone sistemi.
 
 ## ⚙️ Donanım
 
