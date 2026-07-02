@@ -10,8 +10,6 @@
 
 Bu proje ticari değil, **gönüllülük amaçlıdır**. Arama-kurtarma faaliyeti yürüten gönüllü gruplar ve STK'lar için:
 
-- 🌊 Deniz dibi çöp toplama
-- 🌊 Su akıntısı ile karşı adaya giden çöp toplama  
 - 🔍 Doğada kayıp kişi arama-kurtarma
 
 Hedef: Tüm arama-kurtarma gönüllü ekiplerinin kopyalayabileceği, düşük maliyetli, tekrarlanabilir bir kurtarma drone sistemi.
