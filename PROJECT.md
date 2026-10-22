@@ -1,348 +1,355 @@
-# Otopilot Drone Projesi — Arama Kurtarma
+# Rescue Drone — Arama Kurtarma İHA Projesi
 
 **Oluşturulma:** 28.06.2026  
-**Güncelleme:** 01.07.2026  
-**Durum:** Montaj aşamasında  
+**Son güncelleme:** 22.10.2026  
+**Durum:** V1 temel uçuş platformunu tamamlama  
 **Sorumlu:** Ünal TANRISEVER  
-**Amaç:** Doğada kayıp kişi arama-kurtarma drone'u — arama-kurtarma faaliyeti yürüten gönüllü gruplar ve STK'lar için uygun fiyatlı kurtarma drone'una sahip olabilmesi amacıyla tasarlanmıştır. Ticari değil, gönüllülük amaçlıdır.
+**Amaç:** Doğada kayıp kişi arama-kurtarma faaliyetlerinde kullanılabilecek, uygun maliyetli, açık kaynak tabanlı ve geliştirilebilir bir İHA prototipi oluşturmak.
 
-**Niyet:** Deniz dibi çöp toplama + su akıntısı ile karşı adaya giden çöp toplama + arama-kurtarma
+> Bu repo yalnızca arama-kurtarma drone projesine aittir. DJI Neo 2 ve diğer drone projeleri bu kapsamın dışındadır.
 
-## Proje Özeti
+---
 
-Doğada kayıp kişileri tespit etmek için otopilot uçuş yapabilen bir İHA. Pixhawk uçuş kontrol kartı tabanlı, termal/kamera ile donatılmış arama-kurtarma sistemi. Kumanda yok — tam otopilot uçuş, telemetri ile yer istasyonu kontrolü.
+## 1. V1 Başarı Kriteri
 
-**NOT:** DJI Neo 2 ayrı bir proje — çöp toplama ve selfie drone'u. Bu proje sadece arama-kurtarma.
+V1 tamamlanmış sayılabilmesi için aşağıdaki zincirin güvenilir şekilde çalışması gerekir:
 
-## Elde Mevcut Parçalar
+- [ ] Pixhawk fiziksel montajı ve elektrik bağlantıları doğrulandı
+- [ ] ArduPilot Copter güncel stable sürüm kuruldu
+- [ ] Frame Type = Quad X doğrulandı
+- [ ] Accelerometer kalibrasyonu tamamlandı
+- [ ] Compass kalibrasyonu tamamlandı
+- [ ] RC kalibrasyonu tamamlandı
+- [ ] Battery monitor / power module kalibre edildi
+- [ ] Radio failsafe yapılandırıldı ve test edildi
+- [ ] Battery failsafe yapılandırıldı ve test edildi
+- [ ] Motor sıralaması pervaneler sökülüyken doğrulandı
+- [ ] Motor dönüş yönleri doğrulandı
+- [ ] STABILIZE uçuşu güvenilir
+- [ ] ALT_HOLD uçuşu güvenilir
+- [ ] LOITER uçuşu güvenilir
+- [ ] RTL sahada test edildi
+- [ ] Küçük AUTO waypoint/grid görevi başarıyla tamamlandı
+- [ ] Telemetri ve uçuş logları kaydedildi
 
-| Parça | Adet | Kaynak | Not |
-|-------|------|--------|-----|
-| Flysky FS-CT6B Kumanda + FS-R6B Alıcı | 1 | Elinde var | 6 kanal, AFHDS, acil müdahale için |
-| Emax CF2822 1200KV Fırçasız Motor | 4 | ✅ Teslim alındı | motorobit.com |
-| 30A ESC Fırçasız Motor Sürücü | 4 | ✅ Teslim alındı | direnc.net, Topacc |
-| F450 PCB Kartlı Quadcopter Gövde Kiti | 1 | ✅ Teslim alındı | robotistan.com, 450mm, 280g |
-| Pixhawk 32Bit Standart Paket | 1 | ✅ Teslim alındı | robotistan.com, GPS+Buzzer+OSD+LED dahil |
-| MAVLink2 WiFi Telemetri Modülü | 1 | ✅ Teslim alındı | ~50-100m menzil, görev yükleme
-|
-| KK2.15 Ekranlı Uçuş Kontrol Kartı | 1 | Elinde var | ⚠️ Sadece stabilizasyon, otopilot yok |
-| KK Multiicopter v5.5 Uçuş Kontrol Kartı | 1 | Elinde var | ⚠️ Sadece stabilizasyon, otopilot yok |
-| Sony/Murata US18650VTC6 (3000mAh 30A) | 6 | Elinde var | 3S2P yapılarak kullanılacak |
-| DJI Neo 2 | 1 | Siparişte | ❌ Ayrı proje — selfie/çöp drone |
+**V1 tamamlanmadan kamera, termal kamera, companion computer veya AI entegrasyonu uçuş platformuna eklenmeyecek.**
 
-## Sipariş Bekleyen Parçalar
+---
 
-| Parça | Adet | Kaynak | Tahmini Fiyat | Not |
-|-------|------|--------|----------------|-----|
-| 433MHz Radyo Telemetri (Siyah) | 1 çift | robotistan.com | ~7.148 TL | Stokta yok, stok gelince alınacak |
-| 3S LiPo Batarya (2200-3000mAh) | 2 | robotistan.com | ~2.500-5.000 TL | VTC6 ile idare ediliyor, ileride alınacak |
+## 2. Mevcut Donanım
 
-## Alınması Gereken Ekstra Parçalar
+| Parça | Adet | Durum | Not |
+|---|---:|---|---|
+| F450 PCB Quadcopter Gövde | 1 | ✅ Mevcut | 450 mm |
+| Emax CF2822 1200KV Motor | 4 | ✅ Mevcut | 3S kullanım |
+| 30A ESC | 4 | ✅ Mevcut | Topacc |
+| Pixhawk 32Bit Standart Paket | 1 | ✅ Mevcut | GPS, buzzer, safety switch vb. |
+| GPS + Compass | 1 | ✅ Mevcut | Pixhawk paketi |
+| MAVLink2 Wi-Fi Telemetri | 1 | ✅ Mevcut | Kısa menzilli bench/konfigürasyon için |
+| Flysky FS-CT6B + FS-R6B | 1 | ✅ Mevcut | Acil müdahale / manuel kontrol |
+| Sony/Murata US18650VTC6 | 6 | ✅ Mevcut | 3S2P planlanmış |
+| PDB | 1 | ✅ Mevcut | F450 PCB |
+| Pervaneler | Set | ✅ Mevcut | Uygun çap/pitch uçuş öncesi tekrar doğrulanacak |
+| 433 MHz uzun menzil telemetri | 1 çift | ⏳ Plan | V1 için zorunlu değil |
+| 3S LiPo | 1–2 | ⏳ Önerilen | İlk saha testlerinde tercih edilebilir |
+| Power module / akım-voltaj sensörü | 1 | ⚠️ Doğrulanacak | Battery failsafe için kritik |
 
-| Parça | Adet | Tahmini Fiyat | Not |
-|-------|------|----------------|-----|
-| PDB (Güç Dağıtım Boardu) | — | Elinde var | F450 PCB board + yedek |
-| F450 PCB Kartlı Quadcopter Gövde Kiti | — | Elinde var | 450mm, kırmızı/beyaz |
-| Pervane (10x4.5 veya 10x5) | — | Elinde var | CF2822 için uyumlu |
-| LiPo Şarj Aleti | — | Elinde var | 18650 uyumlu olmalı |
-| 3S2P 18650 Holder veya Lehim Malzemesi | 1 | ~50-150 TL | VTC6'lar için paket yapılaşacak |
-| **Aksiyon Kamera (arama-kurtarma)** | 1 | ~1.500-3.000 TL | Aşağıda detaylar |
+### Önceki bench notları
 
-### Aksiyon Kamera Seçenekleri (Arama-Kurtarma)
+01.07.2026 tarihli proje notlarında aşağıdakiler çalışmış olarak kayıtlıdır:
 
-Arama-kurtarma için kamera kritik — kayıp kişiyi tespit etmek için:
+- Motor yön testi: ✅
+- Wi-Fi telemetri testi: ✅
+- Pixhawk, motor, ESC ve gövde temini: ✅
 
-| Seçenek | Fiyat | Artı | Eksi |
-|---------|-------|------|------|
-| **Runcam Split 3 Nano** | ~800-1.200 TL | Hafif (20g), 4K kayıt, FPV çıkışı | Gece görüşü yok |
-| **Caddx Ratel 2** | ~1.500-2.000 TL | Yıldız ışığı sensör, gece görüşü | Ağır değil ama termal yok |
-| **Walksnail Moonlight Kit** | ~10.800 TL | 1080p, geniş FOV, iyi düşük ışık | Pahalı |
-| **Termal kamera (ht301 vb.)** | ~8.000-15.000 TL | ✅ Isı tespiti — arama-kurtarma için en iyi | Çok pahalı, ağır |
+**Bu maddeler ilk saha uçuşundan önce yeniden doğrulanacaktır.**
 
-**Öneri (aşamalı):**
-1. **Faz 1:** Runcam Split 3 Nano veya Caddx Ratel 2 — düşük maliyetle başla
-2. **Faz 2:** Termal kamera modülü ekle (gece/vizual tespit için)
+---
 
-## Donanım Detayları
+## 3. Kritik Düzeltme — ArduPilot Quad X Motor Sıralaması
 
-### Uçuş Kontrol: Pixhawk 32Bit Standart Paket İçeriği
-- 1x Pixhawk 32Bit Uçuş Kontrol Kartı (Cortex M4 ARM)
-- 1x Dahili Pusulalı GPS Modülü
-- 1x Buzzer
-- 1x LED Güvenlik Butonu
-- 1x Telemetri Kablo
-- 1x Micro SD Adaptör
-- 1x GPS Tutucu
-- 1x Servo Kablo
-- 1x Amortisör
-- 1x Drone OSD
-- 1x Güç Kaynağı Kablosu
+Önceki PROJECT.md sürümünde Motor 2 ve Motor 4 konumları hatalı yazılmıştı.
 
-**Ekstra alınacaklar:**
-- SiK Telemetry V3 (433MHz) → Rx-Dynamic ~8.490 TL veya daha uygun alternatif aranıyor
+ArduPilot'un varsayılan Quad X motor fonksiyon sırası:
 
-### Kumanda: Flysky FS-CT6B + FS-R6B
-- 6 kanal, AFHDS protokol
-- Sadece acil durum/arming için
-- Otopilot modunda kumanda kullanılmayacak
+| Motor | Varsayılan çıkış | Konum |
+|---|---|---|
+| Motor 1 | MAIN OUT 1 | Ön Sağ (Front Right) |
+| Motor 2 | MAIN OUT 2 | Arka Sol (Back Left) |
+| Motor 3 | MAIN OUT 3 | Ön Sol (Front Left) |
+| Motor 4 | MAIN OUT 4 | Arka Sağ (Back Right) |
 
-### Motor: Emax CF2822 1200KV
-- 4x fırçasız motor
-- 1200KV, 39g/motor
-- 3S LiPo, 8" pervane ile ~450-550g thrust/motor
-- 3S LiPo, 10" pervane ile ~710g thrust/motor
-- Toplam thrust: ~1.800-2.200g (8") / ~2.840g (10")
+```text
+                 ÖN
+          M3             M1
+       (Ön Sol)       (Ön Sağ)
 
-### ESC Bağlantı Kablosu Renkleri
-- Videodaki: Siyah-Kırmızı-Beyaz
-- Bizimki: **Kahverengi-Kırmızı-Sarı**
-- Kahverengi = GND, Kırmızı = 5V, Sarı = Sinyal
-- Pixhawk MAIN OUT'a: Kahverengi yukarı (GND tarafa), Sarı uca denk gelecek
+              [ PIXHAWK ]
 
-### Motor Sıralaması (ArduPilot QUAD X)
-- MAIN OUT 1: Sağ Ön (FR) — CW pervane
-- MAIN OUT 2: Sağ Arka (BR) — CCW pervane
-- MAIN OUT 3: Sol Ön (FL) — CCW pervane
-- MAIN OUT 4: Sol Arka (BL) — CW pervane
-
-```
-        🔼 ÖN
-   3(FL)    1(FR)
-      ✕
-   4(BL)    2(BR)
-        🔽 ARKA
+          M2             M4
+      (Arka Sol)      (Arka Sağ)
+                ARKA
 ```
 
-### ESC: 30A Fırçasız Motor Sürücü
-- 4x ESC (Topacc marka)
-- CF2822 16A max akım için yeterli
-- Sinyal kablosu: Kahverengi(GND)-Kırmızı(5V)-Sarı(Sinyal)
+> Motor numarası ile Mission Planner Motor Test ekranındaki A/B/C/D harfleri aynı şey değildir.
 
-### KK2.15 ve KK v5.5 Kartları
-- ⚠️ Bu kartlar SADECE stabilizasyon yapar, otopilot DEĞİLDİR
-- GPS, waypoint, RTL özellikleri YOK
-- Pixhawk gelene kadar manuel uçuş testi için kullanılabilir
-- Arama-kurtarma projesi için Pixhawk şart
+Mission Planner Motor Test, Quad X için **ön sağdan başlayıp saat yönünde** test eder. Test mutlaka **pervaneler sökülüyken** yapılacaktır.
 
-### Arama-Kurtarma Özellikleri (Hedef)
+Motor dönüş yönü yalnızca dokümana bakılarak varsayılmayacak; Mission Planner motor diagramı ve fiziksel pervane tipi birlikte doğrulanacaktır.
 
-| Özellik | Açıklama | Faz |
-|---------|----------|-----|
-| Waypoint tarama | Belirlenen alanda grid tarama | Faz 2 |
-| RTL | Otomatik dönüş ve iniş | Faz 2 |
-| Telemetri izleme | Yer istasyonundan canlı konum/veri | Faz 2 |
-| Kamera kayıt | Aksiyon kamera ile video kayıt | Faz 3 |
-| Canlı video | FPV verici ile gerçek zamanlı görüntü | Faz 3 |
-| Termal tespit | Isı kaynağı tespiti (gece arama) | Faz 4 |
-| AI kişi tespiti | Companion computer ile otomatik tespit | Faz 4 |
+---
 
-## CF2822 Motor Hesaplamaları
+## 4. Güç Mimarisi
 
-**Quadcopter (4 motor) tahmini — 3S + 8" pervane:**
-- Thrust/motor: ~450-550g
-- Toplam thrust: ~1.800-2.200g
+Önerilen güç akışı:
 
-**Quadcopter (4 motor) tahmini — 3S + 10" pervane:**
-- Thrust/motor: ~710g
-- Toplam thrust: ~2.840g
-
-**Drone ağırlık tahmini:**
-
-| Parça | Ağırlık |
-|-------|--------|
-| F450 gövde | ~280g |
-| 4× CF2822 motor | 156g |
-| 4× 30A ESC | 40g |
-| Pixhawk + GPS + telemetri | 70g |
-| PDB + kablo | 30g |
-| 4× pervane | 20g |
-| 3S2P VTC6 batarya | ~270g |
-| **TOPLAM** | **~866g** |
-
-**İtki/Ağırlık oranı (8" pervane):**
-
-| İtki | Oran | Değerlendirme |
-|------|------|---------------|
-| 1.800g | 2.1:1 | ✅ Hover için yeterli |
-| 2.000g | 2.3:1 | ✅ İyi uçuş |
-| 2.200g | 2.5:1 | ✅ Çevik uçuş |
-
-**İtki/Ağırlık oranı (10" pervane):**
-
-| İtki | Oran | Değerlendirme |
-|------|------|---------------|
-| 2.840g | 3.3:1 | ✅ Çok çevik, payload kapasitesi |
-
-**Net payload kapasitesi:** ~150-300g (8" pervane), ~400-600g (10" pervane)
-
-**Uçuş süresi tahmini:**
-- 3S2P VTC6 6000mAh, ~866g toplam:
-  - Ortalama akım: ~22-28A (4 motor hover)
-  - Uçuş süresi: ~10-15 dakika
-- 3S 4000mAh LiPo, ~950g toplam:
-  - Ortalama akım: ~22-28A
-  - Uçuş süresi: ~7-10 dakika
-
-### Batarya: Sony/Murata VTC6 3S2P Konfigürasyonu
-
-**Pil özellikleri:**
-- Model: US18650VTC6 (C6)
-- Kapasite: 3000mAh/hücre
-- Sürekli deşarj: 30A/hücre
-- Dolu voltaj: 4.2V, Nominal: 3.7V
-
-**3S2P paket:**
+```text
+Batarya
+   │
+   ▼
+Power Module / Voltage-Current Monitor
+   │
+   ├────────────► Pixhawk POWER
+   │
+   ▼
+F450 PDB
+   ├── ESC 1 ──► Motor 1
+   ├── ESC 2 ──► Motor 2
+   ├── ESC 3 ──► Motor 3
+   └── ESC 4 ──► Motor 4
 ```
-[18650]─[18650]─[18650]  ← 3S sıra 1
-   │        │        │
-[18650]─[18650]─[18650]  ← 3S sıra 2 (paralel)
+
+Power module yalnızca Pixhawk'ı beslemek için değil, aşağıdakiler için de gereklidir:
+
+- Gerçek zamanlı batarya voltajı
+- Akım ölçümü
+- Tüketilen mAh takibi
+- Low Battery failsafe
+- Critical Battery failsafe
+- Uçuş loglarında güç analizi
+
+### Batarya yaklaşımı
+
+Mevcut 3S2P VTC6 paket geliştirme amacıyla kullanılabilir; ancak ilk saha testlerinde:
+
+- hazır ve güvenilir bir 3S LiPo,
+- düzgün bir power module,
+- kalibre edilmiş voltage/current monitor
+
+tercih edilir.
+
+Batarya failsafe değerleri hücre kimyasına ve yük altındaki gerçek voltaj düşümüne göre sahada ölçülerek ayarlanacaktır; sabit bir voltaj değeri kopyalanmayacaktır.
+
+---
+
+## 5. Uçuş Kontrol Bağlantıları
+
+```text
+Pixhawk
+├── POWER      ← Power Module
+├── GPS        ← GPS
+├── I2C/CAN*   ← Compass (modüle göre)
+├── RC IN      ← Flysky receiver
+├── TELEM      ← MAVLink Wi-Fi / ileride SiK telemetri
+├── MAIN OUT 1 → Motor 1 / Ön Sağ
+├── MAIN OUT 2 → Motor 2 / Arka Sol
+├── MAIN OUT 3 → Motor 3 / Ön Sol
+└── MAIN OUT 4 → Motor 4 / Arka Sağ
 ```
-- Voltaj: 11.1V nominal (12.6V dolu)
-- Kapasite: 6000mAh
-- Sürekli deşarj: 60A (30A × 2 paralel)
-- Ağırlık: ~270g
 
-**Değerlendirme:**
-- Bench test (propellersiz): ✅ Sorunsuz
-- Motor yön testi: ✅ Sorunsuz
-- WiFi telemetri testi: ✅ Sorunsuz
-- Kısa hover: ✅ Dikkatli ol
-- Tam gaz uçuş: 60A yeterli ✅
+`* GPS/Compass paketinin bağlantı tipine göre.`
 
-**⚠️ Uyarılar:**
-- Paralel bağlamadan önce 6 pilin de aynı voltajda olmasını kontrol et (0.1V farktan az)
-- Lehim yaparken pili 3sn'den fazla ısıtmamaya dikkat
-- 3S BMS kartı kullanırsan güvenlik ve şarj kolaylaşır
-- XT60 konektör ile PDB'ye bağla
+---
 
-## Yazılım
+## 6. V1 Fazları ve Geçiş Kriterleri
 
-### Uçuş Yazılımı: ArduPilot
-- **ArduPilot Copter 4.x** — quadcopter otopilot
-- MAVLink protokolü ile yer istasyonu iletişimi
-- Mission Planner (Windows) ile konfigürasyon
+### Faz 1 — Mekanik ve Elektrik
 
-### Arama-Kurtarma Yazılımı (ileri seviye)
-- **DroneKit Python** — otopilot görev programlama
-- **OpenCV** — kişi tespiti, hareket algılama
-- **MAVProxy** — headless yer istasyonu
-- **Grid tarama pattern** — belirlenen alanda otomatik arama
+- [ ] F450 gövde sıkılık kontrolü
+- [ ] Pixhawk titreşim azaltıcı pad üzerinde ve yönü doğru
+- [ ] GPS/compass motor güç kablolarından mümkün olduğunca uzak
+- [ ] PDB lehimleri ve XT60 bağlantısı kontrol edildi
+- [ ] ESC güç bağlantıları kontrol edildi
+- [ ] ESC sinyal/GND bağlantıları kontrol edildi
+- [ ] Power module mevcut ve doğru bağlı
+- [ ] Receiver bağlı
+- [ ] Telemetri bağlı
 
-### Otopilot Uçuş Modları
-| Mod | Açıklama | Kullanım |
-|-----|----------|----------|
-| STABILIZE | Manuel + stabilizasyon | Test |
-| ALT_HOLD | Yükseklik tutma | Arama |
-| LOITER | GPS ile konum tutma | Gözlem |
-| AUTO | Waypoint görevi | Grid tarama |
-| RTL | Return to Launch | Güvenlik |
-| GUIDED | Yer istasyonu kontrollü | Hedef takip |
+**Geçiş kriteri:** Kısa devre yok; Pixhawk güvenilir açılıyor; tüm çevre birimleri algılanıyor.
 
-## Proje Fazları
+### Faz 2 — Firmware ve Kalibrasyon
 
-### Faz 1: Temel Uçuş (2-3 hafta)
-- [x] Pixhawk Standart Paket temini ✅ Teslim alındı (01.07.2026)
-- [x] Motor + ESC temini (CF2822 x4, 30A ESC x4) ✅ Teslim alındı
-- [x] F450 gövde kiti ✅ Teslim alındı
-- [x] MAVLink2 WiFi Telemetri ✅ Teslim alındı
-- [x] Kumanda mevcut (Flysky FS-CT6B) ✅ Elinde var
-- [x] 18650 VTC6 pil (6 adet) ✅ Elinde var — 3S2P konfigürasyonu
-- [ ] 3S2P batarya paketi hazırlama (lehim/BMS holder)
-- [ ] 433MHz Radyo Telemetri — stok gelince alınacak
-- [ ] Pervane kontrol (8" veya 10" uyum)
-- [ ] ArduPilot Copter 4.x flash ve kalibrasyon
-- [ ] RC kalibrasyonu (FS-CT6B → Pixhawk PWM)
-- [ ] Pixhawk'ı F450 gövdesine monte et (titreşim azaltıcı pad)
-- [ ] PDB → ESC → Motor bağlantıları
-- [ ] WiFi telemetriyi Pixhawk TELEM2'ye bağla
-- [ ] 3S2P batarya paketini XT60 konektör ile hazırla
-- [ ] Motor yön testi (propellersiz)
-- [ ] İlk uçuş (STABILIZE modu)
-- [ ] Telemetri bağlantısı testi
+- [ ] ArduPilot Copter stable firmware
+- [ ] Frame = Quad X
+- [ ] Accelerometer calibration
+- [ ] Compass calibration
+- [ ] Radio calibration
+- [ ] Flight modes atandı
+- [ ] Battery monitor calibration
+- [ ] Radio failsafe
+- [ ] Battery failsafe
+- [ ] Arming checks açık
 
-### Faz 2: Otopilot Uçuş (1-2 hafta)
-- [ ] GPS kalibrasyonu
-- [ ] ALT_HOLD, LOITER modu testleri
-- [ ] Waypoint görevi (AUTO modu) — grid tarama pattern
-- [ ] RTL acil durum prosedürü testi
-- [ ] Batarya monitörü ve alarm
+**Geçiş kriteri:** Pre-arm hata vermiyor veya her uyarının nedeni bilinçli olarak çözülmüş.
 
-### Faz 3: Arama-Kurtarma Entegrasyonu (2-4 hafta)
-- [ ] Aksiyon kamera montajı ve kayıt
-- [ ] FPV verici ile canlı görüntü (opsiyonel)
-- [ ] Grid tarama görevi oluşturma (belirlenen alan otomatik tarama)
-- [ ] Mission Planner ile arama pattern'leri
-- [ ] Gerçek zamanlı telemetri dashboard
+### Faz 3 — Pervanesiz Motor Testi
 
-### Faz 4: Gelişmiş Arama-Kurtarma (4-8 hafta)
-- [ ] Termal kamera modülü entegrasyonu
-- [ ] Companion Computer (RPi 4B) montajı
-- [ ] OpenCV ile kişi tespiti
-- [ ] Otomatik iniş (precision landing)
-- [ ] Web tabanlı arama koordinasyon arayüzü
+- [ ] Pervaneler tamamen söküldü
+- [ ] Mission Planner Motor Test A/B/C/D konumları doğrulandı
+- [ ] Motor 1–4 fiziksel konumları doğrulandı
+- [ ] Dönüş yönleri doğrulandı
+- [ ] ESC'ler tutarlı şekilde başlıyor
+- [ ] Anormal titreşim/ses yok
 
-## Bütçe Tahmini
+**Geçiş kriteri:** Her komut yalnızca beklenen motoru çalıştırıyor.
 
-| Kategori | Bütçe (TL) |
-|----------|------------|
-| Pixhawk Standart Paket | ~12.317 |
-| 3DR V5 1000mW Telemetri | ~7.148 |
-| PDB (Güç Dağıtım) | ~200 |
-| F450 PCB Kartlı Gövde | ~500-800 |
-| Motor + ESC (CF2822 x4 + 30A ESC x4) | ~1.500-2.000 |
-| Pervane + Yedek | ~100-200 |
-| 3S LiPo Batarya (2 adet) | ~1.600-2.400 |
-| Aksiyon Kamera (Runcam/Caddx) | ~1.000-2.000 |
-| Diğer (kablo, konektör, vs.) | ~200-300 |
-| **Toplam** | **~25.700-29.500 TL** |
+### Faz 4 — İlk Uçuş
 
-**İleri fazlar:**
-- 433MHz Radyo Telemetri: +7.148 TL (stok gelince)
-- 3S LiPo batarya (2 adet): +2.500-5.000 TL (opsiyonel, VTC6 idare ediyor)
-- Termal kamera modülü: +8.000-15.000 TL
-- Companion Computer (RPi 4B): +2.000-3.000 TL
-- FPV verici sistemi: +2.000-4.000 TL
+Test sırası:
 
-## Montaj Durumu (01.07.2026)
+1. STABILIZE
+2. ALT_HOLD
+3. LOITER
+4. RTL
+5. AUTO
 
-**Tamamlanan:**
-- ✅ Pixhawk, motor, ESC, gövde, WiFi telemetri teslim alındı
-- ✅ ESC → Pixhawk MAIN OUT bağlantı renkleri doğrulandı (Kahverengi=GND, Kırmızı=5V, Sarı=Sinyal)
-- ✅ Motor sıralaması belirlendi (QUAD X: FR=1, BR=2, FL=3, BL=4)
+Her aşamadan sonra log incelenecek; bir önceki mod güvenilir değilse sonraki aşamaya geçilmeyecek.
 
-**Sıradaki:**
-- Pixhawk'ı F450'ye monte et (titreşim azaltıcı pad)
-- PDB → ESC → Motor wiring
-- WiFi telemetri → Pixhawk TELEM2
-- 3S2P VTC6 batarya paketi hazırla
-- ArduPilot firmware yükle + kalibrasyon
-- Motor yön testi (propellersiz)
+**İlk saha testi hedefi:** sadece kısa hover ve kontrollü iniş.
 
-## Güvenlik ve Yasal
+### Faz 5 — Otonom Grid
 
-- **TR'de İHA:** SHGM onayı gerekli, e-Devlet kaydı zorunlu
-- **Sivil İHA limiti:** 25kg altı, 120m yükseklik, VLOS
-- **Arama-kurtarma:** AFAD/UMKE koordinasyonu gerekli
-- **Sigorta:** Üçüncü şahıs sorumluluk sigortası zorunlu
-- **İlk uçuş:** Açık alan, kumanda hazır bulundurulmalı
-- **RTL:** Her uçuşta testli ve aktif olmalı
-- **Batarya:** %20 altına düşmeden iniş yapılmalı
+- [ ] Mission Planner'da küçük test alanı
+- [ ] Düşük hız
+- [ ] Güvenli irtifa
+- [ ] RTL yüksekliği doğrulandı
+- [ ] Geofence değerlendirildi
+- [ ] AUTO görevi
+- [ ] Görev sonunda RTL/LAND davranışı doğrulandı
 
-## Kaynaklar
+**Geçiş kriteri:** Küçük grid görevi tekrarlanabilir biçimde tamamlanıyor.
 
-- [ArduPilot Dokümantasyonu](https://ardupilot.org/)
-- [Pixhawk Dokümantasyonu](https://docs.px4.io/)
-- [DroneKit Python](https://dronekit-python.readthedocs.io/)
-- [MAVLink Protokolü](https://mavlink.io/)
+---
+
+## 7. Arama-Kurtarma V2 Mimarisi
+
+V1 uçuş platformu tamamlandıktan sonra:
+
+```text
+RGB Kamera ───────┐
+                  │
+Termal Kamera ───►│ Companion Computer
+                  │ Raspberry Pi 5 / benzeri
+                  │
+                  ├── Person Detection
+                  ├── Thermal Hotspot Detection
+                  ├── Frame Timestamp
+                  └── Hedef piksel koordinatı
+                         │
+                         ▼
+                     MAVLink
+                         │
+                         ▼
+                     Pixhawk
+                         │
+                  GPS / Altitude / Yaw
+                         │
+                         ▼
+                Tahmini hedef koordinatı
+                         │
+                         ▼
+              Yer istasyonunda işaretleme
+```
+
+### V2 hedefleri
+
+- [ ] RGB canlı görüntü
+- [ ] Görüntü kaydı
+- [ ] Termal kamera
+- [ ] Companion computer
+- [ ] AI kişi tespiti
+- [ ] Tespitin zaman damgası ile uçuş logunu eşleştirme
+- [ ] Hedef koordinatı tahmini
+- [ ] Yer istasyonunda pin/olay kaydı
+- [ ] Aynı hedefin tekrar tekrar raporlanmasını engelleyen takip mantığı
+
+**FPGA şu aşamada gerekli değildir.** İhtiyaç daha sonra düşük gecikmeli görüntü ön işleme nedeniyle oluşursa ayrıca değerlendirilecektir.
+
+---
+
+## 8. Yazılım
+
+### Uçuş
+
+- ArduPilot Copter
+- Mission Planner
+- MAVLink
+
+### Companion Computer — V2
+
+- Python
+- OpenCV
+- MAVSDK veya pymavlink
+- AI inference runtime
+- İleride web tabanlı görev/olay arayüzü
+
+> Yeni geliştirmede DroneKit'e bağımlı mimari kurmak yerine MAVSDK/pymavlink öncelikli değerlendirilecektir.
+
+---
+
+## 9. İlk Çalışma Oturumu — Yapılacaklar
+
+Bir sonraki fiziksel çalışma oturumunun sırası:
+
+- [ ] Drone'un üstten ve alttan güncel fotoğrafını çek
+- [ ] Pixhawk model/etiketini doğrula
+- [ ] Power module'un fiziksel olarak mevcut olup olmadığını doğrula
+- [ ] GPS/compass kablolarını doğrula
+- [ ] Receiver bağlantısını doğrula
+- [ ] ESC → MAIN OUT sırasını kablo kablo doğrula
+- [ ] Pervaneleri çıkar
+- [ ] Mission Planner bağlantısı kur
+- [ ] Mevcut firmware sürümünü kaydet
+- [ ] Parametre yedeği al
+- [ ] Motor Test A/B/C/D sonuçlarını kaydet
+
+Bu işlem tamamlanınca ilk uçuş öncesi eksik parça listesi kesinleşecektir.
+
+---
+
+## 10. Güvenlik
+
+- Motor testleri pervaneler sökülüyken yapılır.
+- İlk uçuş geniş, boş ve insanlardan uzak bir alanda yapılır.
+- Manuel müdahale için RC bağlantısı aktif tutulur.
+- Arming checks sırf uçuşu mümkün kılmak için kapatılmaz.
+- GPS tabanlı modlar yeterli konum çözümü olmadan denenmez.
+- LOITER güvenilir olmadan RTL denenmez.
+- RTL güvenilir olmadan AUTO göreve geçilmez.
+- Her saha testinden sonra DataFlash logu saklanır ve incelenir.
+- Uçuş öncesinde yürürlükteki SHGM kayıt, uçuş sahası ve operasyon kuralları ayrıca doğrulanır.
+
+---
+
+## 11. Resmî Teknik Kaynaklar
+
+- [ArduPilot — First Time Setup](https://ardupilot.org/copter/docs/initial-setup.html)
+- [ArduPilot — Connect ESCs and Motors](https://ardupilot.org/copter/docs/connect-escs-and-motors.html)
+- [ArduPilot — Autopilot Output Functions](https://ardupilot.org/copter/docs/common-rcoutput-mapping.html)
+- [ArduPilot — Pre-Flight Checklist](https://ardupilot.org/copter/docs/checklist.html)
+- [ArduPilot — Battery Failsafe](https://ardupilot.org/copter/docs/failsafe-battery.html)
+- [ArduPilot — Power Modules](https://ardupilot.org/copter/docs/common-powermodule-landingpage.html)
 - [Mission Planner](https://ardupilot.org/planner/)
-- [Emax CF2822 Motor Spec](https://www.motorobit.com/emax-cf2822-1200kv-fircasiz-drone-motoru)
+- [MAVLink](https://mavlink.io/)
 
-## Notlar
+---
 
-- Bu proje **arama-kurtarma** amaçlıdır — DJI Neo 2 ayrı bir proje (selfie/çöp drone)
-- İlk uçuşlarda Flysky FS-CT6B kumanda ile el kontrolü hazır bulundurulacak
-- Kumanda sadece arming ve acil müdahale için
-- SiK Telemetry V3 ile yer istasyonundan tam kontrol sağlanacak
-- Arama-kurtarma için termal kamera en değerli eklenti (Faz 4)
-- KK2.15 ve KK v5.5 kartları otopilot için uygun değil, sadece öğrenme amaçlı
-- CF2822 + 3S LiPo + 10" pervane + F450 frame kombinasyonu bu proje için ideal
+## 12. Proje Durum Özeti
+
+**Şu anki hedef:** Kamera/AI satın almak değil; F450 + Pixhawk platformunu güvenilir şekilde uçurmak.
+
+**Bir sonraki kilometre taşı:**
+
+> Pervanesiz bağlantı ve motor doğrulaması → firmware/kalibrasyon → kısa STABILIZE hover.
+
+Bundan sonra ALT_HOLD, LOITER, RTL ve AUTO grid görevleri sırayla kapatılacaktır.
