@@ -38,6 +38,8 @@ V1 tamamlanmış sayılabilmesi için aşağıdaki zincirin güvenilir şekilde 
 
 ## 2. Mevcut Donanım
 
+Güncel ikame fiyatları, V1 satın alma öncelikleri ve V2 donanım bütçesi için bkz. [docs/HARDWARE-BOM.md](docs/HARDWARE-BOM.md).
+
 | Parça | Adet | Durum | Not |
 |---|---:|---|---|
 | F450 PCB Quadcopter Gövde | 1 | ✅ Mevcut | 450 mm |
