@@ -86,7 +86,7 @@ Hedef: Tüm arama-kurtarma gönüllü ekiplerinin kopyalayabileceği, düşük m
 
 ## 🤝 Katkıda Bulunma
 
-Bu proje AKUT gönüllüleri içindir. Katkıda bulunmak için:
+Bu proje tüm STK gönüllüleri içindir. Katkıda bulunmak için:
 
 1. Fork yapın
 2. Feature branch oluşturun (`git checkout -b feature/yenilik`)
